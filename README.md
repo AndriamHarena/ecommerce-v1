@@ -27,7 +27,17 @@ git switch -c nouvelle-branche
 
 ---
 
-## 📝 3. `git status`
+## 👀 3. `git branch`
+
+> **Visualiser toutes les branches**
+
+```bash
+git branch
+```
+
+---
+
+## 📝 4. `git status`
 
 > **Voir les fichiers modifiés / en attente de commit**
 
@@ -37,7 +47,7 @@ git status
 
 ---
 
-## 📂 4. `git add`
+## 📂 5. `git add`
 
 > **Prépare un ou plusieurs fichiers pour le commit**
 
@@ -48,7 +58,7 @@ git add .                      # ajouter tous les fichiers modifiés
 
 ---
 
-## 💾 5. `git commit`
+## 💾 6. `git commit`
 
 > **Enregistre les changements avec un message**
 
@@ -58,7 +68,7 @@ git commit -m "Message clair de ce que tu as fait"
 
 ---
 
-## 📤 6. `git push`
+## 📤 7. `git push`
 
 > **Envoie tes commits vers le dépôt distant (GitHub, etc.)**
 
@@ -68,7 +78,7 @@ git push origin nom-de-branche
 
 ---
 
-## 🔄 7. `git pull`
+## 🔄 8. `git pull`
 
 > **Récupère les dernières modifications du dépôt distant et les fusionne dans ta branche**
 
@@ -84,7 +94,7 @@ git pull origin main
 
 ---
 
-## 🔀 8. `git merge`
+## 🔀 9. `git merge`
 
 > **Fusionne une branche dans ta branche actuelle**
 
@@ -101,7 +111,7 @@ git merge ma-feature
 
 ---
 
-## 🔧 9. `git log`
+## 🔧 10. `git log`
 
 > **Voir l’historique des commits**
 
@@ -112,7 +122,7 @@ git log --oneline     # version courte
 
 ---
 
-## ❌ 10. `git reset`
+## ❌ 11. `git reset`
 
 > **Annule un commit (attention !)**
 
@@ -123,7 +133,7 @@ git reset --hard HEAD~1   # annule et supprime les modifications
 
 ---
 
-## 🧽 11. `git stash`
+## 🧽 12. `git stash`
 
 > **Sauvegarde temporairement tes modifs pour faire autre chose**
 
