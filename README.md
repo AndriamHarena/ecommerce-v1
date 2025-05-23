@@ -1,31 +1,127 @@
-# SUJET DU COURS DE GIT/IA
+# Étape de conception
 
-## SUJET
+## 🧱 1. Structure des dossiers
 
-Nous allons réaliser une petite application web en **NodeJS** et **ReactJS**.
-Le but étant d'implémenter, utiliser, dans de bonnes conditions l'outil GIT !
-Nous allons travailler en groupe, nous devons nous organiser, nous avons 3 jours de développement dans lesquel nous devons aller le plus loin possible.
+```
+backend/
+├── models/
+│   └── Product.js
+├── routes/
+│   └── productRoutes.js
+├── controllers/
+│   └── productController.js
+├── index.js
+```
 
-OBJECTIFS :
+---
 
-- Concevoir une application web en NodeJS et ReactJS
-- Faire une gestion de projet et définir des tâche par membre de groupe.
-- Mettre en place les différentes fonctionnalités tout en utilisant GIT pour le versionning, le suivi et l'organisation.
-- Apprendre a utiliser et intégrer l'IA dans nos besoins de dev.
+## 🧾 2. Créer le modèle `Product.js`
 
-L'application :
-Nous voulons mettre en place un début d'application Ecommerce. Nous voulons que les fonctionnalités suivantes soient mises en place :
+Dans `models/Product.js` :
 
-- Gestion d'utilisateurs avec ROLES (admin, user)
-- Affichage des produits, possibilité de placer une commande, et possibilité de visualiser l'historique des commandes
-- Un système de administration permettant de gérer les users, produits, et commandes.
+```js
+const mongoose = require("mongoose");
 
-PARTIE BACKEND :
+const productSchema = new mongoose.Schema({
+  name: { type: String, required: true },
+  description: String,
+  price: { type: Number, required: true },
+  stock: { type: Number, default: 0 },
+  imageUrl: String,
+}, { timestamps: true });
 
-- Concevoir le modèle de BDD
-- Mettre en place un server nodeJS, et créer un webservice avec les différentes requetes necessaires
+module.exports = mongoose.model("Product", productSchema);
+```
 
-PARTIE FRONTEND :
+---
 
-- Créer des vues
-- Brancher ces vues au backend via des requêtes HTTP
+## 🎮 3. Créer le contrôleur `productController.js`
+
+Dans `controllers/productController.js` :
+
+```js
+const Product = require("../models/Product");
+
+// CREATE
+exports.createProduct = async (req, res) => {
+    ...
+};
+
+// READ ALL
+exports.getProducts = async (req, res) => {
+    ...
+};
+
+// READ ONE
+exports.getProduct = async (req, res) => {
+    ...
+};
+
+// UPDATE
+exports.updateProduct = async (req, res) => {
+    ...
+};
+
+// DELETE
+exports.deleteProduct = async (req, res) => {
+    ...
+};
+```
+
+---
+
+## 🌐 4. Créer les routes `productRoutes.js`
+
+Dans `routes/productRoutes.js` :
+
+```js
+const express = require("express");
+const router = express.Router();
+const {
+  createProduct,
+  getProducts,
+  getProduct,
+  updateProduct,
+  deleteProduct,
+} = require("../controllers/productController");
+
+router.get("/", getProducts);
+router.post("/", createProduct);
+router.get("/:id", getProduct);
+router.put("/:id", updateProduct);
+router.delete("/:id", deleteProduct);
+
+module.exports = router;
+```
+
+---
+
+## 🔌 5. Connecter les routes à `index.js`
+
+Dans `index.js` :
+
+```js
+const productRoutes = require("./routes/productRoutes");
+app.use("/api/products", productRoutes);
+```
+
+---
+
+## ✅ 6. Tester avec Postman
+
+Exemples d’URL pour tester :
+
+* `GET http://localhost:5000/api/products` → voir tous les produits
+* `POST http://localhost:5000/api/products/:id` → voir un produit
+* etc.
+
+---
+
+### 👉 Prochaine étape
+
+Quand tout ça marche, tu pourras :
+
+1. Commencer le CRUD commandes de la même manière
+2. Ou passer au frontend et consommer ces routes avec React
+
+Souhaites-tu que je t’aide à créer aussi la partie **commande** ou à **brancher le frontend avec React** ?

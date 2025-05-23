@@ -19,5 +19,7 @@ app.listen(process.env.PORT, () =>
   console.log(`Server running on port ${process.env.PORT}`)
 );
 
+// Importer le fichier productRoutes.js
 const productRoutes = require("./routes/productRoutes");
+
 app.use("/api/products", productRoutes);
