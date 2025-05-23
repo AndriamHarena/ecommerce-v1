@@ -1,156 +1,94 @@
-# Résumé des commandes Git essentielles
+# GIT
 
-## 🔄 1. `git clone`
-
-> **Copie un projet distant sur ta machine (GitHub, GitLab, etc.)**
-
-```bash
-git clone https://github.com/utilisateur/projet.git
-```
+1. On a plusieurs versions du même code : locale et distante (GitHub/GitLab).
+2. On peut créer différentes **branches** qui vont être des versions parallèles du même code source.
+3. Chaque modification que l'on effectue peut être sauvegardée (**versioning**).
+4. Chaque dev peut travailler sur les mêmes fichiers. Si un conflit survient, on pourra le régler.
+5. Chaque modification est enregistrée, accompagnée d’un **auteur**, d’un **message**, d’une **date**, etc.
 
 ---
 
-## 🔀 2. `git switch` ou `git checkout`
+## Comment travailler
 
-> **Changer de branche**
+1. **On crée une branche par fonctionnalité** :
 
-```bash
-git switch nom-de-branche      # recommandé (plus moderne)
-git checkout nom-de-branche    # ancienne syntaxe encore utilisée
-```
+   ```bash
+   git checkout
+   git branch
+   ```
 
-> **Créer et se placer sur une nouvelle branche :**
+2. **Lorsqu'une modification est prête, on peut "commit" (sauvegarder)** :
 
-```bash
-git switch -c nouvelle-branche
-```
+   ```bash
+   git commit -m "Message du commit"
+   ```
 
----
+3. **Lorsque tout est terminé et testé, on peut faire un "push" (envoyer le code local vers la version distante)** :
 
-## 👀 3. `git branch`
+   ```bash
+   git push
+   ```
 
-> **Visualiser toutes les branches**
-
-```bash
-git branch
-```
+4. **Lorsque le code a été push, on peut "fusionner" les branches** (en entreprise, cette étape est accompagnée d'une *pull request*).
 
 ---
 
-## 📝 4. `git status`
+## Comment démarrer notre projet sur GitHub à l'aide de GIT
 
-> **Voir les fichiers modifiés / en attente de commit**
+1. Créer un **repository** sur GitHub.
+
+2. Ajouter vos collègues en tant que **collaborateurs**.
+
+3. Récupérer le lien du repo dans l'onglet **"Code" (bouton vert)** :
 
 ```bash
-git status
+https://github.com/titoms/ecommerce-v1.git
 ```
 
----
+## 4. Depuis votre machine locale, lancer la commande suivante
 
-## 📂 5. `git add`
+   ```bash
+   git clone https://github.com/titoms/ecommerce-v1.git
+   ```
 
-> **Prépare un ou plusieurs fichiers pour le commit**
+## 5. Pour bien utiliser GIT, voici les commandes utiles à connaître
 
 ```bash
-git add monfichier.txt         # ajouter un fichier
-git add .                      # ajouter tous les fichiers modifiés
+git status                     # Résumé des modifications actuelles
+git checkout                   # Changer de branche
+git checkout -b "BRANCH_NAME" # Créer et se positionner sur une nouvelle branche
+git branch                     # Visualiser les branches locales
+git add .                      # Ajouter tous les fichiers modifiés au prochain commit
+git commit -m "COMMIT_MESSAGE" # Sauvegarder le code avec un message explicatif
+git push                       # Envoyer le code local vers le dépôt distant
 ```
 
----
+## 6. Une fois le code "pushé", il reste cette étape importante
 
-## 💾 6. `git commit`
+   1. Créer une **pull request** sur GitHub : cela affiche les modifications effectuées sur votre branche.
+   2. Quelqu’un de l’équipe vérifie vos changements. Si tout va bien, il **merge** votre branche avec `main`.
+   3. Sur votre PC (local), **revenir sur la branche `main`** et faire :
 
-> **Enregistre les changements avec un message**
+      ```bash
+      git pull
+      ```
+
+## 7. Après avoir fait vos tâches et un `push`, **tout le monde doit vérifier qu'il a la dernière version** du projet
+
+* Si vous êtes sur `main` et commencez à travailler :
 
 ```bash
-git commit -m "Message clair de ce que tu as fait"
+git pull
 ```
 
----
-
-## 📤 7. `git push`
-
-> **Envoie tes commits vers le dépôt distant (GitHub, etc.)**
+* Si vous étiez déjà en train de bosser, pour actualiser votre version :
 
 ```bash
-git push origin nom-de-branche
+git rebase   # (SURTOUT, JAMAIS FAIRE "git pull")
 ```
 
----
-
-## 🔄 8. `git pull`
-
-> **Récupère les dernières modifications du dépôt distant et les fusionne dans ta branche**
+* Si vous installez le projet pour la première fois ou si une nouvelle dépendance a été ajoutée :
 
 ```bash
-git pull origin nom-de-branche
-```
-
-> Exemples :
-
-```bash
-git pull origin main
-```
-
----
-
-## 🔀 9. `git merge`
-
-> **Fusionne une branche dans ta branche actuelle**
-
-```bash
-git merge nom-de-la-branche-a-fusionner
-```
-
-> Exemples :
-
-```bash
-git switch main
-git merge ma-feature
-```
-
----
-
-## 🔧 10. `git log`
-
-> **Voir l’historique des commits**
-
-```bash
-git log
-git log --oneline     # version courte
-```
-
----
-
-## ❌ 11. `git reset`
-
-> **Annule un commit (attention !)**
-
-```bash
-git reset --soft HEAD~1   # annule le dernier commit, garde les fichiers
-git reset --hard HEAD~1   # annule et supprime les modifications
-```
-
----
-
-## 🧽 12. `git stash`
-
-> **Sauvegarde temporairement tes modifs pour faire autre chose**
-
-```bash
-git stash           # sauvegarde
-git stash pop       # récupère ce que tu avais mis de côté
-```
-
----
-
-### 🔁 Récap express (cas typique)
-
-```bash
-git pull origin main
-git switch -c nouvelle-branche
-# tu codes...
-git add .
-git commit -m "Ajout d'une fonctionnalité"
-git push origin nouvelle-branche
+npm install
 ```
