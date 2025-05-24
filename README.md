@@ -4,12 +4,16 @@
 
 ```mathematica
 backend/
-├── models/
-│   └── Product.js
-├── routes/
-│   └── productRoutes.js
 ├── controllers/
-│   └── productController.js
+│   └── authController.js
+├── middleware/
+│   └── authMiddleware.js
+├── models/
+│   └── Order.js
+├── routes/
+│   └── authRoutes.js
+├── seed/
+│   └── seedProducts.js
 ├── index.js
 ```
 

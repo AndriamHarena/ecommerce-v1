@@ -30,3 +30,6 @@ app.use('/api/auth', authRoutes);
 // Importer le fichier user.js
 const userRoutes = require('./routes/user');
 app.use('/api/user', userRoutes);
+
+const orderRoutes = require('./routes/orderRoutes');
+app.use('/api/orders', orderRoutes);
