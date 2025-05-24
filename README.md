@@ -6,14 +6,19 @@
 backend/
 ├── controllers/
 │   └── authController.js
+│   └── ....js
 ├── middleware/
 │   └── authMiddleware.js
+│   └── ....js
 ├── models/
 │   └── Order.js
+│   └── ....js
 ├── routes/
 │   └── authRoutes.js
+│   └── ....js
 ├── seed/
 │   └── seedProducts.js
+│   └── ....js
 ├── index.js
 ```
 
@@ -26,6 +31,7 @@ Il s'agit d'un projet e-commerce développé avec Node.js, Express.js et MongoDB
 Les contrôleurs contiennent la logique métier et interagissent avec les modèles pour effectuer les opérations CRUD (Créer, Lire, Mettre à jour, Supprimer). Le projet comprend les contrôleurs suivants :
 
 * `productController.js` : Gère les opérations liées aux produits (création, lecture, mise à jour, suppression).
+* `orderController.js` : Gère les opérations liées aux commandes.
 * `userController.js` : Gère les opérations liées aux utilisateurs.
 * `authController.js` : Gère les opérations liées à l’authentification (connexion, enregistrement).
 
@@ -34,6 +40,7 @@ Les contrôleurs contiennent la logique métier et interagissent avec les modèl
 Les routes définissent les points d’accès de l’API (endpoints). Le projet inclut les routes suivantes :
 
 * `productRoutes.js` : Définit les routes liées aux produits, comme `/api/products`, `/api/products/:id`, etc.
+* `orderRoutes.js` : Définit les routes liées aux commandes, comme `/api/orders`, `/api/orders/:id`, etc.
 * `userRoutes.js` : Définit les routes liées aux utilisateurs, comme `/api/users`, `/api/users/:id`, etc.
 * `authRoutes.js` : Définit les routes liées à l’authentification, comme `/api/auth/login`, `/api/auth/register`, etc.
 
@@ -41,6 +48,7 @@ Les routes définissent les points d’accès de l’API (endpoints). Le projet 
 
 Les modèles définissent la structure des données stockées dans la base de données. Le projet contient les modèles suivants :
 
+* `Order.js` : Décrit la structure d’une commande.
 * `Product.js` : Décrit la structure d’un produit dans la base de données.
 * `User.js` : Décrit la structure d’un utilisateur.
 * `Order.js` : Décrit la structure d’une commande.
@@ -69,6 +77,12 @@ Voici les principaux points d’entrée de l’API du projet :
   * `POST /api/products` : Crée un nouveau produit.
   * `PUT /api/products/:id` : Met à jour un produit existant.
   * `DELETE /api/products/:id` : Supprime un produit.
+
+  * Commandes
+
+  * `GET /api/orders` : Récupère la liste des commandes.
+  * `GET /api/orders/:id` : Récupère une commande par son ID.
+  * `POST /api/orders` : Crée une nouvelle commande.
 
 * Utilisateurs
 

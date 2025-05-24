@@ -1,6 +1,7 @@
 const Order = require('../models/Order');
 const Product = require('../models/Product');
 
+// CREATE
 exports.createOrder = async (req, res) => {
     try {
         const userId = req.user.id;
@@ -33,6 +34,7 @@ exports.createOrder = async (req, res) => {
     }
 };
 
+// READ ALL
 exports.getUserOrders = async (req, res) => {
     try {
         const userId = req.user.id;
@@ -41,5 +43,21 @@ exports.getUserOrders = async (req, res) => {
         res.status(200).json(orders);
     } catch (error) {
         res.status(500).json({ message: "Erreur lors de la récupération des commandes.", error });
+    }
+};
+
+// READ ONE
+exports.getOrderById = async (req, res) => {
+    try {
+        const userId = req.user.id;
+        const orderId = req.params.id;
+
+        const order = await Order.findOne({ _id: orderId, user: userId }).populate('products.product');
+        if (!order) {
+            return res.status(404).json({ message: "Commande introuvable." });
+        }
+        res.status(200).json(order);
+    } catch (error) {
+        res.status(500).json({ message: "Erreur lors de la récupération de la commande.", error });
     }
 };
