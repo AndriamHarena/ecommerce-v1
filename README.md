@@ -1,8 +1,8 @@
 # Étape de conception
 
-## 🧱 1. Structure des dossiers
+## Structure des dossiers
 
-```
+```mathematica
 backend/
 ├── models/
 │   └── Product.js
@@ -13,115 +13,68 @@ backend/
 ├── index.js
 ```
 
----
+## Présentation du projet
 
-## 🧾 2. Créer le modèle `Product.js`
+Il s'agit d'un projet e-commerce développé avec Node.js, Express.js et MongoDB. Le projet est organisé en plusieurs dossiers, chacun contenant des composants spécifiques de l'application.
 
-Dans `models/Product.js` :
+## Controllers (Contrôleurs)
 
-```js
-const mongoose = require("mongoose");
+Les contrôleurs contiennent la logique métier et interagissent avec les modèles pour effectuer les opérations CRUD (Créer, Lire, Mettre à jour, Supprimer). Le projet comprend les contrôleurs suivants :
 
-const productSchema = new mongoose.Schema({
-  name: { type: String, required: true },
-  description: String,
-  price: { type: Number, required: true },
-  stock: { type: Number, default: 0 },
-  imageUrl: String,
-}, { timestamps: true });
+* `productController.js` : Gère les opérations liées aux produits (création, lecture, mise à jour, suppression).
+* `userController.js` : Gère les opérations liées aux utilisateurs.
+* `authController.js` : Gère les opérations liées à l’authentification (connexion, enregistrement).
 
-module.exports = mongoose.model("Product", productSchema);
-```
+## Routes
 
----
+Les routes définissent les points d’accès de l’API (endpoints). Le projet inclut les routes suivantes :
 
-## 🎮 3. Créer le contrôleur `productController.js`
+* `productRoutes.js` : Définit les routes liées aux produits, comme `/api/products`, `/api/products/:id`, etc.
+* `userRoutes.js` : Définit les routes liées aux utilisateurs, comme `/api/users`, `/api/users/:id`, etc.
+* `authRoutes.js` : Définit les routes liées à l’authentification, comme `/api/auth/login`, `/api/auth/register`, etc.
 
-Dans `controllers/productController.js` :
+## Models (Modèles)
 
-```js
-const Product = require("../models/Product");
+Les modèles définissent la structure des données stockées dans la base de données. Le projet contient les modèles suivants :
 
-// CREATE
-exports.createProduct = async (req, res) => {
-    ...
-};
+* `Product.js` : Décrit la structure d’un produit dans la base de données.
+* `User.js` : Décrit la structure d’un utilisateur.
+* `Order.js` : Décrit la structure d’une commande.
 
-// READ ALL
-exports.getProducts = async (req, res) => {
-    ...
-};
+## Middleware
 
-// READ ONE
-exports.getProduct = async (req, res) => {
-    ...
-};
+Les middlewares sont des fonctions qui s’exécutent avant ou après le traitement des routes. Le projet inclut notamment :
 
-// UPDATE
-exports.updateProduct = async (req, res) => {
-    ...
-};
+* `authMiddleware.js` : Vérifie le token d’authentification envoyé dans l’en-tête `Authorization` des requêtes.
 
-// DELETE
-exports.deleteProduct = async (req, res) => {
-    ...
-};
-```
+## Scripts de seed
 
----
+Les scripts de seed permettent de peupler la base de données avec des données initiales. Le projet inclut :
 
-## 🌐 4. Créer les routes `productRoutes.js`
+* `seedProducts.js` : Ajoute des produits initiaux dans la base de données.
+* `seedUser.js` : Ajoute un utilisateur initial.
 
-Dans `routes/productRoutes.js` :
+## Points d’entrée API
 
-```js
-const express = require("express");
-const router = express.Router();
-const {
-  createProduct,
-  getProducts,
-  getProduct,
-  updateProduct,
-  deleteProduct,
-} = require("../controllers/productController");
+Voici les principaux points d’entrée de l’API du projet :
 
-router.get("/", getProducts);
-router.post("/", createProduct);
-router.get("/:id", getProduct);
-router.put("/:id", updateProduct);
-router.delete("/:id", deleteProduct);
+* Produits
 
-module.exports = router;
-```
+  * `GET /api/products` : Récupère la liste de tous les produits.
+  * `GET /api/products/:id` : Récupère un produit par son ID.
+  * `POST /api/products` : Crée un nouveau produit.
+  * `PUT /api/products/:id` : Met à jour un produit existant.
+  * `DELETE /api/products/:id` : Supprime un produit.
 
----
+* Utilisateurs
 
-## 🔌 5. Connecter les routes à `index.js`
+  * `GET /api/users` : Récupère la liste des utilisateurs.
+  * `GET /api/users/:id` : Récupère un utilisateur par son ID.
+  * `POST /api/users` : Crée un nouvel utilisateur.
+  * `PUT /api/users/:id` : Met à jour un utilisateur.
+  * `DELETE /api/users/:id` : Supprime un utilisateur.
 
-Dans `index.js` :
+* Authentification
 
-```js
-const productRoutes = require("./routes/productRoutes");
-app.use("/api/products", productRoutes);
-```
-
----
-
-## ✅ 6. Tester avec Postman
-
-Exemples d’URL pour tester :
-
-* `GET http://localhost:5000/api/products` → voir tous les produits
-* `POST http://localhost:5000/api/products/:id` → voir un produit
-* etc.
-
----
-
-### 👉 Prochaine étape
-
-Quand tout ça marche, tu pourras :
-
-1. Commencer le CRUD commandes de la même manière
-2. Ou passer au frontend et consommer ces routes avec React
-
-Souhaites-tu que je t’aide à créer aussi la partie **commande** ou à **brancher le frontend avec React** ?
+  * `POST /api/auth/login` : Connecte un utilisateur et renvoie un token d’authentification.
+  * `POST /api/auth/register` : Enregistre un nouvel utilisateur.
