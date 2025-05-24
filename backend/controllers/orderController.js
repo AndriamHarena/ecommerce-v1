@@ -34,7 +34,7 @@ exports.createOrder = async (req, res) => {
     }
 };
 
-// READ ALL
+// READ ALL BY USER
 exports.getUserOrders = async (req, res) => {
     try {
         const userId = req.user.id;
@@ -46,7 +46,7 @@ exports.getUserOrders = async (req, res) => {
     }
 };
 
-// READ ONE
+// READ ONE BY USER
 exports.getOrderById = async (req, res) => {
     try {
         const userId = req.user.id;
@@ -59,5 +59,15 @@ exports.getOrderById = async (req, res) => {
         res.status(200).json(order);
     } catch (error) {
         res.status(500).json({ message: "Erreur lors de la récupération de la commande.", error });
+    }
+};
+
+// READ ALL
+exports.getAllOrders = async (req, res) => {
+    try {
+        const orders = await Order.find().populate('products.product').populate('user', 'email role');
+        res.status(200).json(orders);
+    } catch (error) {
+        res.status(500).json({ message: "Erreur lors de la récupération de toutes les commandes.", error });
     }
 };
