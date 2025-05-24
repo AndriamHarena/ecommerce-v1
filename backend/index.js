@@ -21,5 +21,12 @@ app.listen(process.env.PORT, () =>
 
 // Importer le fichier productRoutes.js
 const productRoutes = require("./routes/productRoutes");
-
 app.use("/api/products", productRoutes);
+
+// Importer le fichier authRoutes.js
+const authRoutes = require('./routes/authRoutes');
+app.use('/api/auth', authRoutes);
+
+// Importer le fichier user.js
+const userRoutes = require('./routes/user');
+app.use('/api/user', userRoutes);
