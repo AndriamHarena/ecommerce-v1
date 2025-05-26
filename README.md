@@ -78,10 +78,11 @@ Voici les principaux points d’entrée de l’API du projet :
   * `PUT /api/products/:id` : Met à jour un produit existant.
   * `DELETE /api/products/:id` : Supprime un produit.
 
-  * Commandes
+* Commandes
 
   * `GET /api/orders` : Récupère la liste des commandes.
   * `GET /api/orders/:id` : Récupère une commande par son ID.
+  * `GET /api/orders/all` : Récupère toutes les commandes (admin seulement).
   * `POST /api/orders` : Crée une nouvelle commande.
 
 * Utilisateurs
