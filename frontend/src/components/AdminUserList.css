@@ -41,6 +41,96 @@
   background-color: #f9f9f9;
 }
 
+/* Styles pour la rangée utilisateur actuel */
+.current-user {
+  background-color: #f0f7ff;
+}
+
+.current-user:hover {
+  background-color: #e3f2fd;
+}
+
+.current-user-badge {
+  display: inline-block;
+  margin-left: 0.5rem;
+  padding: 0.1rem 0.4rem;
+  background-color: #e3f2fd;
+  color: #1565c0;
+  border-radius: 12px;
+  font-size: 0.7rem;
+  font-weight: 500;
+}
+
+/* Styles pour les badges de rôle */
+.role-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.6rem;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.role-admin {
+  background-color: #ede7f6;
+  color: #4a148c;
+}
+
+.role-user {
+  background-color: #e8f5e9;
+  color: #2e7d32;
+}
+
+.role-icon {
+  margin-right: 0.35rem;
+  font-size: 0.9rem;
+}
+
+/* Boutons pour mettre à jour les rôles */
+.role-update-button {
+  padding: 0.35rem 0.8rem;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  cursor: pointer;
+  border: none;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.role-update-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.role-update-button.promote {
+  background-color: #e8f5e9;
+  color: #2e7d32;
+}
+
+.role-update-button.promote:hover:not(:disabled) {
+  background-color: #c8e6c9;
+}
+
+.role-update-button.demote {
+  background-color: #ffebee;
+  color: #c62828;
+}
+
+.role-update-button.demote:hover:not(:disabled) {
+  background-color: #ffcdd2;
+}
+
+.button-loading {
+  display: inline-block;
+  animation: pulse 1.2s infinite;
+}
+
+@keyframes pulse {
+  0% { opacity: 0.6; }
+  50% { opacity: 1; }
+  100% { opacity: 0.6; }
+}
+
 .loading-users,
 .error-users,
 .no-users,
