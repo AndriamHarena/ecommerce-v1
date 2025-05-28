@@ -2,98 +2,84 @@
 
 ## Structure des dossiers
 
-```mathematica
-backend/
-├── controllers/
-│   └── authController.js
-│   └── ....js
-├── middleware/
-│   └── authMiddleware.js
-│   └── ....js
-├── models/
-│   └── Order.js
-│   └── ....js
-├── routes/
-│   └── authRoutes.js
-│   └── ....js
-├── seed/
-│   └── seedProducts.js
-│   └── ....js
-├── index.js
+```plaintext
+frontend/
+├── api/
+│   └── apiClient.js
+├── components/
+│   ├── Navbar.jsx
+│   ├── ProductCard.jsx
+│   └── UserProfile.jsx
+├── context/
+│   └── AuthContext.jsx
+├── pages/
+│   ├── Home.jsx
+│   ├── Login.jsx
+│   ├── OrderHistory.jsx
+│   ├── ProfilePage.jsx
+│   └── Register.jsx
+├── App.jsx
+├── main.jsx
+├── index.html
+└── package.json
 ```
 
 ## Présentation du projet
 
-Il s'agit d'un projet e-commerce développé avec Node.js, Express.js et MongoDB. Le projet est organisé en plusieurs dossiers, chacun contenant des composants spécifiques de l'application.
+Il s’agit de la partie frontend d’une application e-commerce développée avec **React.js** et **Vite**. L’interface est découpée en composants réutilisables, avec un système de navigation par page et une gestion globale de l’authentification à l’aide du context API de React. Les appels vers l’API backend sont centralisés dans un client Axios.
 
-## Controllers (Contrôleurs)
+## Répertoire `api`
 
-Les contrôleurs contiennent la logique métier et interagissent avec les modèles pour effectuer les opérations CRUD (Créer, Lire, Mettre à jour, Supprimer). Le projet comprend les contrôleurs suivants :
+Le dossier `api` centralise la gestion des requêtes vers l’API backend.
 
-* `productController.js` : Gère les opérations liées aux produits (création, lecture, mise à jour, suppression).
-* `orderController.js` : Gère les opérations liées aux commandes.
-* `userController.js` : Gère les opérations liées aux utilisateurs.
-* `authController.js` : Gère les opérations liées à l’authentification (connexion, enregistrement).
+* `apiClient.js` : Ce fichier configure un client Axios avec une base URL (`http://localhost:3001/api`) et un intercepteur qui injecte automatiquement le token JWT (stocké dans le localStorage) dans les en-têtes des requêtes.
+  Il exporte également plusieurs fonctions (ex : `getProducts`, `getCurrentUser`) qui facilitent la communication avec les points d’entrée du backend.
 
-## Routes
+## Répertoire `components`
 
-Les routes définissent les points d’accès de l’API (endpoints). Le projet inclut les routes suivantes :
+Le dossier `components` contient les composants React réutilisables à travers l'application :
 
-* `productRoutes.js` : Définit les routes liées aux produits, comme `/api/products`, `/api/products/:id`, etc.
-* `orderRoutes.js` : Définit les routes liées aux commandes, comme `/api/orders`, `/api/orders/:id`, etc.
-* `userRoutes.js` : Définit les routes liées aux utilisateurs, comme `/api/users`, `/api/users/:id`, etc.
-* `authRoutes.js` : Définit les routes liées à l’authentification, comme `/api/auth/login`, `/api/auth/register`, etc.
+* `Navbar.jsx` : Affiche la barre de navigation avec des liens vers les différentes pages (accueil, profil, etc.).
+* `ProductCard.jsx` : Composant d’affichage des produits (image, nom, prix).
+* `UserProfile.jsx` : Composant dédié à l’affichage des informations d’un utilisateur connecté.
 
-## Models (Modèles)
+Ces composants sont pensés pour être modulaires et intégrés facilement dans plusieurs pages.
 
-Les modèles définissent la structure des données stockées dans la base de données. Le projet contient les modèles suivants :
+## Répertoire `context`
 
-* `Order.js` : Décrit la structure d’une commande.
-* `Product.js` : Décrit la structure d’un produit dans la base de données.
-* `User.js` : Décrit la structure d’un utilisateur.
-* `Order.js` : Décrit la structure d’une commande.
+Le dossier `context` gère l’état global de l’application, notamment pour l’authentification :
 
-## Middleware
+* `AuthContext.jsx` : Définit un `AuthContext` avec React. Il fournit :
 
-Les middlewares sont des fonctions qui s’exécutent avant ou après le traitement des routes. Le projet inclut notamment :
+  * L’état d’authentification (`user`, `token`, etc.).
+  * Des fonctions de connexion, déconnexion, enregistrement, etc.
+  * Le hook personnalisé `useAuth()` pour accéder facilement au contexte dans n’importe quel composant.
 
-* `authMiddleware.js` : Vérifie le token d’authentification envoyé dans l’en-tête `Authorization` des requêtes.
+## Répertoire `pages`
 
-## Scripts de seed
+Ce répertoire contient les pages principales de l’application, chacune correspondant à une route dans le système de navigation.
 
-Les scripts de seed permettent de peupler la base de données avec des données initiales. Le projet inclut :
+* `Home.jsx` : Page d’accueil affichant la liste des produits.
+* `Login.jsx` : Formulaire de connexion.
+* `Register.jsx` : Formulaire d’inscription.
+* `OrderHistory.jsx` : Affiche les commandes passées par l’utilisateur connecté.
+* `ProfilePage.jsx` : Affiche les informations personnelles de l’utilisateur.
 
-* `seedProducts.js` : Ajoute des produits initiaux dans la base de données.
-* `seedUser.js` : Ajoute un utilisateur initial.
+Chaque fichier de page exporte un composant React représentant une vue complète avec sa logique propre.
 
-## Points d’entrée API
+## Autres fichiers importants
 
-Voici les principaux points d’entrée de l’API du projet :
+* `App.jsx` : Composant racine de l’application. Gère le routage et l’agencement général.
+* `main.jsx` : Point d’entrée de l’application, qui monte `App` dans le DOM.
+* `index.html` : Gabarit HTML principal utilisé par Vite.
+* `package.json` : Contient les métadonnées, scripts, dépendances du projet frontend.
 
-* Produits
+## Résumé
 
-  * `GET /api/products` : Récupère la liste de tous les produits.
-  * `GET /api/products/:id` : Récupère un produit par son ID.
-  * `POST /api/products` : Crée un nouveau produit.
-  * `PUT /api/products/:id` : Met à jour un produit existant.
-  * `DELETE /api/products/:id` : Supprime un produit.
+L’architecture du frontend est organisée selon une séparation claire des responsabilités :
 
-* Commandes
-
-  * `GET /api/orders` : Récupère la liste des commandes.
-  * `GET /api/orders/:id` : Récupère une commande par son ID.
-  * `GET /api/orders/all` : Récupère toutes les commandes (admin seulement).
-  * `POST /api/orders` : Crée une nouvelle commande.
-
-* Utilisateurs
-
-  * `GET /api/users` : Récupère la liste des utilisateurs.
-  * `GET /api/users/:id` : Récupère un utilisateur par son ID.
-  * `POST /api/users` : Crée un nouvel utilisateur.
-  * `PUT /api/users/:id` : Met à jour un utilisateur.
-  * `DELETE /api/users/:id` : Supprime un utilisateur.
-
-* Authentification
-
-  * `POST /api/auth/login` : Connecte un utilisateur et renvoie un token d’authentification.
-  * `POST /api/auth/register` : Enregistre un nouvel utilisateur.
+* **`api/`** pour la communication avec le backend,
+* **`components/`** pour les éléments visuels réutilisables,
+* **`context/`** pour la gestion de l’état global,
+* **`pages/`** pour les vues principales de l’application.
+  Ce découpage facilite la maintenance, la lisibilité et l’évolutivité du code.
