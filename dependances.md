@@ -1,13 +1,13 @@
 
-# Installation des dépendances de base
+# Installation des dépendances
 
-Aller dans le dossier `frontend` :
+## 1. Aller dans le dossier `frontend`
 
 ```bash
 cd frontend
 ```
 
-## 1. Installation des dépendances de base
+## Installation des dépendances de base
 
 Installer les dépendances avec :
 
@@ -102,3 +102,4 @@ Et dans `"devDependencies"` :
 | Lancement du dev server         | `npm run dev`                                         |
 | Ajout de `react-router-dom`     | `npm install react-router-dom`                        |
 | Ajout de `axios`                | `npm install axios`                                   |
+| Ajout de `jwt-decode`           | `npm install jwt-decode`                              |
