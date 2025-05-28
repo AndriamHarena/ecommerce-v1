@@ -1,0 +1,92 @@
+.admin-user-list {
+  padding: 1.5rem;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  margin: 1rem 0;
+}
+
+.admin-user-list h2 {
+  color: #333;
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid #eee;
+}
+
+.users-table-container {
+  overflow-x: auto;
+}
+
+.users-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+}
+
+.users-table th,
+.users-table td {
+  padding: 0.75rem 1rem;
+  text-align: left;
+  border-bottom: 1px solid #eee;
+}
+
+.users-table th {
+  background-color: #f5f5f5;
+  font-weight: 600;
+  color: #555;
+}
+
+.users-table tr:hover {
+  background-color: #f9f9f9;
+}
+
+.loading-users,
+.error-users,
+.no-users,
+.access-denied {
+  padding: 2rem;
+  text-align: center;
+  border-radius: 8px;
+  margin: 1rem 0;
+}
+
+.loading-users {
+  color: #666;
+  background-color: #f9f9f9;
+}
+
+.error-users {
+  color: #d32f2f;
+  background-color: #ffebee;
+  border: 1px solid #ffcdd2;
+}
+
+.error-users button {
+  background: #f44336;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  margin-top: 0.75rem;
+  cursor: pointer;
+}
+
+.error-users button:hover {
+  background: #d32f2f;
+}
+
+.no-users {
+  color: #666;
+  background-color: #f5f5f5;
+}
+
+.access-denied {
+  color: #d32f2f;
+  background-color: #ffebee;
+  border: 1px solid #ffcdd2;
+}
+
+.access-denied h3 {
+  margin-top: 0;
+}

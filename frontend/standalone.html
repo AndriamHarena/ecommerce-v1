@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Standalone React Test</title>
+</head>
+<body>
+  <div id="root"></div>
+  <script type="module">
+    import React from 'react';
+    import { createRoot } from 'react-dom/client';
+    
+    function App() {
+      return React.createElement('div', null, [
+        React.createElement('h1', null, 'Standalone Test'),
+        React.createElement('p', null, 'This is a minimal React app without any dependencies.'),
+        React.createElement('p', null, `Current time: ${new Date().toLocaleTimeString()}`)
+      ]);
+    }
+    
+    const container = document.getElementById('root');
+    const root = createRoot(container);
+    root.render(React.createElement(App));
+  </script>
+</body>
+</html>

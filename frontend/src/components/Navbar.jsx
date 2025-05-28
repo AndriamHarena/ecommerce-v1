@@ -16,9 +16,28 @@ function Navbar() {
         <Link to="/" style={{ marginRight: '1rem' }}>Accueil</Link>
         
         {user && (
-          <Link to="/orders" style={{ marginRight: '1rem' }}>
-            Mes commandes
-          </Link>
+          <>
+            <Link to="/orders" style={{ marginRight: '1rem' }}>
+              Mes commandes
+            </Link>
+            
+            {/* Admin dashboard link - only visible to admin users */}
+            {user.role === 'admin' && (
+              <Link 
+                to="/admin" 
+                style={{ 
+                  marginRight: '1rem', 
+                  backgroundColor: '#4a148c', 
+                  color: 'white', 
+                  padding: '0.3rem 0.8rem', 
+                  borderRadius: '4px',
+                  textDecoration: 'none'
+                }}
+              >
+                Admin Dashboard
+              </Link>
+            )}
+          </>
         )}
       </div>
       
