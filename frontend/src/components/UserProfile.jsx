@@ -17,7 +17,7 @@ function UserProfile() {
   }, [user, loading, error, refreshUserProfile]);
 
   if (loading) {
-    return <div className="user-profile loading">Loading user profile...</div>;
+    return <div className="user-profile loading">Chargement du profil utilisateur...</div>;
   }
 
   if (error) {

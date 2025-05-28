@@ -35,7 +35,7 @@ function AdminUsersPage() {
       <div className="admin-header">
         <h1>Gestion des utilisateurs</h1>
         <p className="admin-breadcrumb">
-          <a href="/admin">Dashboard</a> &gt; Utilisateurs
+          <a href="/admin">Tableau de bord</a> &gt; Utilisateurs
         </p>
       </div>
       

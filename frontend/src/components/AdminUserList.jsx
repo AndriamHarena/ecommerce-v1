@@ -90,7 +90,7 @@ function AdminUserList() {
   }
 
   if (loading) {
-    return <div className="loading-users">Loading users...</div>;
+    return <div className="loading-users">Chargement des utilisateurs...</div>;
   }
 
   if (error) {

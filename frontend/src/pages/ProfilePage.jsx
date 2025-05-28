@@ -16,7 +16,7 @@ function ProfilePage() {
   
   return (
     <div className="profile-page" style={{ padding: '2rem', maxWidth: '800px', margin: '0 auto' }}>
-      <h1>Your Profile</h1>
+      <h1>Votre Profil</h1>
       <UserProfile />
     </div>
   );

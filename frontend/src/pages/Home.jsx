@@ -32,25 +32,40 @@ function Home() {
             fontWeight: 'bold',
             transition: 'all 0.3s ease',
             boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)'
-          }}>Go to Admin Dashboard</Link>
+          }}>Accéder au tableau de bord Admin</Link>
         ) : (
-          <Link to="/login" style={{
-            display: 'inline-block',
-            background: 'white',
-            color: '#764ba2',
-            padding: '12px 24px',
-            borderRadius: '30px',
-            textDecoration: 'none',
-            fontWeight: 'bold',
-            transition: 'all 0.3s ease',
-            boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)'
-          }}>Log In</Link>
+          <div>
+            <Link to="/login" style={{
+              display: 'inline-block',
+              background: 'white',
+              color: '#764ba2',
+              padding: '12px 24px',
+              borderRadius: '30px',
+              textDecoration: 'none',
+              fontWeight: 'bold',
+              transition: 'all 0.3s ease',
+              boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+              marginRight: '15px'
+            }}>Se connecter</Link>
+            <Link to="/register" style={{
+              display: 'inline-block',
+              background: 'rgba(255, 255, 255, 0.2)',
+              color: 'white',
+              border: '2px solid white',
+              padding: '12px 24px',
+              borderRadius: '30px',
+              textDecoration: 'none',
+              fontWeight: 'bold',
+              transition: 'all 0.3s ease',
+              boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)'
+            }}>S'inscrire</Link>
+          </div>
         )}
       </div>
 
       {/* Features section */}
       <div style={{ marginBottom: '40px' }}>
-        <h2 style={{ fontSize: '1.8rem', marginBottom: '20px', textAlign: 'center' }}>Key Platform Features</h2>
+        <h2 style={{ fontSize: '1.8rem', marginBottom: '20px', textAlign: 'center' }}>Fonctionnalités clés de la plateforme</h2>
         
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: '20px', justifyContent: 'center' }}>
           {/* Feature Cards */}
@@ -64,13 +79,13 @@ function Home() {
             transition: 'transform 0.3s ease',
             border: '1px solid #e7e7e7'
           }}>
-            <h3 style={{ marginBottom: '15px', color: '#333' }}>User Management</h3>
+            <h3 style={{ marginBottom: '15px', color: '#333' }}>Gestion des utilisateurs</h3>
             <p style={{ marginBottom: '15px', color: '#666' }}>
-              Easily manage all registered users, edit their profiles, and control access permissions.
+              Gérez facilement tous les utilisateurs inscrits, modifiez leurs profils et contrôlez les permissions d'accès.
             </p>
             {user?.role === 'admin' && (
-              <Link to="/admin" style={{ color: '#764ba2', textDecoration: 'none', fontWeight: 'bold' }}>
-                Manage Users →
+              <Link to="/admin/users" style={{ color: '#764ba2', textDecoration: 'none', fontWeight: '500' }}>
+                Gérer les utilisateurs →
               </Link>
             )}
           </div>
@@ -85,12 +100,12 @@ function Home() {
             transition: 'transform 0.3s ease',
             border: '1px solid #e7e7e7'
           }}>
-            <h3 style={{ marginBottom: '15px', color: '#333' }}>Product Catalog</h3>
+            <h3 style={{ marginBottom: '15px', color: '#333' }}>Catalogue de produits</h3>
             <p style={{ marginBottom: '15px', color: '#666' }}>
-              Manage your product catalog with ease. Add, edit, and organize your inventory efficiently.
+              Gérez votre catalogue de produits facilement. Ajoutez, modifiez et organisez votre inventaire efficacement.
             </p>
             <Link to="/" style={{ color: '#764ba2', textDecoration: 'none', fontWeight: 'bold' }}>
-              Coming Soon →
+              Bientôt disponible →
             </Link>
           </div>
           
@@ -104,12 +119,12 @@ function Home() {
             transition: 'transform 0.3s ease',
             border: '1px solid #e7e7e7'
           }}>
-            <h3 style={{ marginBottom: '15px', color: '#333' }}>Order Processing</h3>
+            <h3 style={{ marginBottom: '15px', color: '#333' }}>Gestion des commandes</h3>
             <p style={{ marginBottom: '15px', color: '#666' }}>
-              Track and manage customer orders from placement to delivery with our comprehensive tools.
+              Suivez et gérez les commandes clients de la passation à la livraison avec nos outils complets.
             </p>
             <Link to="/" style={{ color: '#764ba2', textDecoration: 'none', fontWeight: 'bold' }}>
-              Coming Soon →
+              Bientôt disponible →
             </Link>
           </div>
         </div>
@@ -123,19 +138,19 @@ function Home() {
         marginBottom: '40px',
         textAlign: 'center'
       }}>
-        <h2 style={{ marginBottom: '25px', fontSize: '1.8rem' }}>Platform Status</h2>
+        <h2 style={{ marginBottom: '25px', fontSize: '1.8rem' }}>Statut de la plateforme</h2>
         <div style={{ display: 'flex', justifyContent: 'space-around', flexWrap: 'wrap', gap: '15px' }}>
           <div style={{ padding: '15px' }}>
             <div style={{ fontSize: '2.5rem', fontWeight: 'bold', color: '#764ba2' }}>24/7</div>
-            <div style={{ color: '#666' }}>Support Available</div>
+            <div style={{ color: '#666' }}>Support disponible</div>
           </div>
           <div style={{ padding: '15px' }}>
             <div style={{ fontSize: '2.5rem', fontWeight: 'bold', color: '#764ba2' }}>99.9%</div>
-            <div style={{ color: '#666' }}>Uptime</div>
+            <div style={{ color: '#666' }}>Disponibilité</div>
           </div>
           <div style={{ padding: '15px' }}>
             <div style={{ fontSize: '2.5rem', fontWeight: 'bold', color: '#764ba2' }}>{new Date().toLocaleDateString()}</div>
-            <div style={{ color: '#666' }}>Last Updated</div>
+            <div style={{ color: '#666' }}>Dernière mise à jour</div>
           </div>
         </div>
       </div>

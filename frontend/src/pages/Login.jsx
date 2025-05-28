@@ -128,7 +128,7 @@ function Login() {
                         opacity: isLoading ? 0.7 : 1
                     }}
                 >
-                    {isLoading ? 'Logging in...' : 'Login'}
+                    {isLoading ? 'Connexion en cours...' : 'Se connecter'}
                 </button>
                 
                 <div style={{ marginTop: '20px', textAlign: 'center', fontSize: '14px', color: '#666' }}>
