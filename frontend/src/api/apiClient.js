@@ -50,7 +50,8 @@ export const getProducts = async () => {
  */
 export const getUserOrders = async () => {
     try {
-        const response = await apiClient.get('/orders/me');
+        // Utiliser la route correcte définie dans le backend
+        const response = await apiClient.get('/orders');
         return response.data;
     } catch (error) {
         console.error('Erreur lors de la récupération des commandes:', error);
@@ -115,6 +116,21 @@ export const updateUserRole = async (userId, newRole) => {
         }
         throw error;
     }
+};
+
+/**
+ * Crée une nouvelle commande
+ * @param {Object} orderData - Les données de la commande (produits, adresse, etc.)
+ * @returns {Promise<Object>} La commande créée
+ */
+export const createOrder = async (orderData) => {
+  try {
+    const response = await apiClient.post('/orders', orderData);
+    return response.data;
+  } catch (error) {
+    console.error('Erreur lors de la création de la commande:', error);
+    throw error;
+  }
 };
 
 // Add token to all requests

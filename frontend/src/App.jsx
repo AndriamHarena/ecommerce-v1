@@ -7,11 +7,19 @@ import AdminDashboard from './pages/AdminDashboard';
 import AdminUsersPage from './pages/AdminUsersPage';
 import OrdersPage from './pages/OrdersPage';
 import ShopPage from './pages/ShopPage';
+import ProductsPage from './pages/ProductsPage';
+import CartPage from './pages/CartPage';
+import CheckoutPage from './pages/CheckoutPage';
+import OrderConfirmationPage from './pages/OrderConfirmationPage';
 import AccessDenied from './pages/AccessDenied';
 import TestPage from './pages/TestPage';
 import TestBasic from './pages/TestBasic';
 import Navbar from './components/Navbar';
-import { useAuth } from './context/AuthContext';
+
+// Contextes
+import { useAuth, AuthProvider } from './context/AuthContext';
+import { ProductProvider } from './context/ProductContext';
+import { CartProvider } from './context/CartContext';
 
 // Composant pour protéger les routes d'admin
 const AdminRoute = ({ children }) => {
@@ -43,6 +51,19 @@ const UserRoute = ({ children }) => {
   return children;
 };
 
+// Composant principal qui englobe les routes avec les providers
+function AppWithProviders() {
+  return (
+    <AuthProvider>
+      <ProductProvider>
+        <CartProvider>
+          <App />
+        </CartProvider>
+      </ProductProvider>
+    </AuthProvider>
+  );
+}
+
 function App() {
   console.log('App component rendering');
   const { user, isAdmin } = useAuth();
@@ -61,7 +82,21 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/shop" element={<ShopPage />} />
+          <Route path="/products" element={<ProductsPage />} />
+          <Route path="/cart" element={<CartPage />} />
           <Route path="/access-denied" element={<AccessDenied />} />
+          
+          {/* Routes pour le processus de commande */}
+          <Route path="/checkout" element={
+            <UserRoute>
+              <CheckoutPage />
+            </UserRoute>
+          } />
+          <Route path="/order-confirmation" element={
+            <UserRoute>
+              <OrderConfirmationPage />
+            </UserRoute>
+          } />
           
           {/* Routes utilisateur protégées */}
           <Route path="/orders" element={
@@ -119,6 +154,7 @@ function App() {
                   <li><Link to="/login" style={{ color: '#4a90e2', textDecoration: 'none' }}>Connexion</Link></li>
                   <li><Link to="/register" style={{ color: '#4a90e2', textDecoration: 'none' }}>Inscription</Link></li>
                   <li><Link to="/shop" style={{ color: '#4a90e2', textDecoration: 'none' }}>Boutique</Link></li>
+                  <li><Link to="/products" style={{ color: '#4a90e2', textDecoration: 'none' }}>Produits</Link></li>
                   <li><Link to="/admin" style={{ color: '#4a90e2', textDecoration: 'none' }}>Admin</Link></li>
                 </ul>
               </div>
@@ -141,4 +177,4 @@ function App() {
   );
 }
 
-export default App;
+export default AppWithProviders;
