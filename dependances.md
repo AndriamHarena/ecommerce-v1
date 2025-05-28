@@ -61,6 +61,16 @@ npm install axios
 
 ---
 
+## 5. Ajout de `jwt-decode`
+
+```bash
+npm install jwt-decode
+```
+
+### Cela a installé
+
+* `jwt-decode` (pour decoder un JWT)
+
 ## 📦 Liste actuelle des principales dépendances dans `package.json`
 
 ```json
