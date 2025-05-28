@@ -1,7 +1,9 @@
 import { Routes, Route } from 'react-router-dom';
 import Home from './pages/Home';
 import Login from './pages/Login';
+import Register from './pages/Register';
 import AdminPage from './pages/AdminPage';
+import OrdersPage from './pages/OrdersPage';
 import TestPage from './pages/TestPage';
 import TestBasic from './pages/TestBasic';
 import Navbar from './components/Navbar';
@@ -21,7 +23,9 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/home" element={<Home />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
         <Route path="/admin" element={<AdminPage />} />
+        <Route path="/orders" element={<OrdersPage />} />
         <Route path="/test" element={<TestPage />} />
         <Route path="/basic" element={<TestBasic />} />
         {/* Route for debugging - will always render */}

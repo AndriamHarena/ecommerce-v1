@@ -45,6 +45,20 @@ export const getProducts = async () => {
 };
 
 /**
+ * Récupère les commandes de l'utilisateur connecté
+ * @returns {Promise<Array>} Liste des commandes de l'utilisateur
+ */
+export const getUserOrders = async () => {
+    try {
+        const response = await apiClient.get('/orders/me');
+        return response.data;
+    } catch (error) {
+        console.error('Erreur lors de la récupération des commandes:', error);
+        throw error;
+    }
+};
+
+/**
  * Fetches the current user's profile data from the server
  * @returns {Promise<Object>} User profile data
  */
