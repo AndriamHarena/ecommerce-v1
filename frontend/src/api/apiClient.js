@@ -90,6 +90,33 @@ export const getAllUsers = async () => {
     }
 };
 
+/**
+ * Updates a user's role (admin only)
+ * @param {string} userId - The ID of the user to update
+ * @param {string} newRole - The new role to assign ('user' or 'admin')
+ * @returns {Promise<Object>} Updated user information
+ */
+export const updateUserRole = async (userId, newRole) => {
+    try {
+        if (!userId || !newRole) {
+            throw new Error('User ID and new role are required');
+        }
+        
+        if (newRole !== 'user' && newRole !== 'admin') {
+            throw new Error('Invalid role. Role must be either "user" or "admin"');
+        }
+
+        const response = await apiClient.patch(`/user/${userId}/role`, { role: newRole });
+        return response.data;
+    } catch (error) {
+        console.error('Error updating user role:', error);
+        if (error.response && error.response.status === 403) {
+            throw new Error('Access denied: Admin privileges required');
+        }
+        throw error;
+    }
+};
+
 // Add token to all requests
 apiClient.interceptors.request.use((config) => {
     const token = localStorage.getItem('token');

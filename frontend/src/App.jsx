@@ -1,15 +1,51 @@
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Navigate, Link } from 'react-router-dom';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import AdminPage from './pages/AdminPage';
+import AdminDashboard from './pages/AdminDashboard';
+import AdminUsersPage from './pages/AdminUsersPage';
 import OrdersPage from './pages/OrdersPage';
+import ShopPage from './pages/ShopPage';
+import AccessDenied from './pages/AccessDenied';
 import TestPage from './pages/TestPage';
 import TestBasic from './pages/TestBasic';
 import Navbar from './components/Navbar';
+import { useAuth } from './context/AuthContext';
+
+// Composant pour protéger les routes d'admin
+const AdminRoute = ({ children }) => {
+  const { user, loading, isAdmin } = useAuth();
+  
+  if (loading) return <div className="loading">Chargement...</div>;
+  
+  if (!user) {
+    return <Navigate to="/login" />;
+  }
+  
+  if (!isAdmin()) {
+    return <Navigate to="/access-denied" />;
+  }
+  
+  return children;
+};
+
+// Composant pour protéger les routes utilisateur
+const UserRoute = ({ children }) => {
+  const { user, loading } = useAuth();
+  
+  if (loading) return <div className="loading">Chargement...</div>;
+  
+  if (!user) {
+    return <Navigate to="/login" />;
+  }
+  
+  return children;
+};
 
 function App() {
   console.log('App component rendering');
+  const { user, isAdmin } = useAuth();
   
   return (
     <div className="app-container">
@@ -17,35 +53,77 @@ function App() {
       <Navbar />
       
       {/* Main content area */}
-      <div className="main-content" style={{ padding: '20px', maxWidth: '1200px', margin: '0 auto' }}>
+      <div className="main-content" style={{ padding: '0', maxWidth: '100%', margin: '0 auto' }}>
         <Routes>
-        {/* Main application routes */}
-        <Route path="/" element={<Home />} />
-        <Route path="/home" element={<Home />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/admin" element={<AdminPage />} />
-        <Route path="/orders" element={<OrdersPage />} />
-        <Route path="/test" element={<TestPage />} />
-        <Route path="/basic" element={<TestBasic />} />
-        {/* Route for debugging - will always render */}
-        <Route path="*" element={
-          <div style={{ padding: '20px', textAlign: 'center' }}>
-            <h1>Page Not Found</h1>
-            <p>The page you are looking for doesn't exist or has been moved.</p>
-            <div>
-              <p>Available pages:</p>
-              <ul style={{ listStyle: 'none', padding: 0 }}>
-                <li><a href="/" style={{ color: '#4a90e2', textDecoration: 'none' }}>Basic Test (Home)</a></li>
-                <li><a href="/home" style={{ color: '#4a90e2', textDecoration: 'none' }}>Home</a></li>
-                <li><a href="/login" style={{ color: '#4a90e2', textDecoration: 'none' }}>Login</a></li>
-                <li><a href="/admin" style={{ color: '#4a90e2', textDecoration: 'none' }}>Admin</a></li>
-                <li><a href="/test" style={{ color: '#4a90e2', textDecoration: 'none' }}>Test</a></li>
-                <li><a href="/basic" style={{ color: '#4a90e2', textDecoration: 'none' }}>Basic Test</a></li>
-              </ul>
-            </div>
-          </div>
-        } />
+          {/* Routes publiques */}
+          <Route path="/" element={<Home />} />
+          <Route path="/home" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/shop" element={<ShopPage />} />
+          <Route path="/access-denied" element={<AccessDenied />} />
+          
+          {/* Routes utilisateur protégées */}
+          <Route path="/orders" element={
+            <UserRoute>
+              <OrdersPage />
+            </UserRoute>
+          } />
+          
+          {/* Routes administrateur protégées */}
+          <Route path="/admin" element={
+            <AdminRoute>
+              <AdminPage />
+            </AdminRoute>
+          } />
+          <Route path="/admin/dashboard" element={
+            <AdminRoute>
+              <AdminDashboard />
+            </AdminRoute>
+          } />
+          <Route path="/admin/users" element={
+            <AdminRoute>
+              <AdminUsersPage />
+            </AdminRoute>
+          } />
+          
+          {/* Routes de test */}
+          <Route path="/test" element={<TestPage />} />
+          <Route path="/basic" element={<TestBasic />} />
+          
+          {/* Route par défaut - redirection intelligente basée sur le rôle */}
+          <Route path="*" element={
+            user ? (
+              isAdmin() ? (
+                <Navigate to="/admin/dashboard" replace />
+              ) : (
+                <Navigate to="/shop" replace />
+              )
+            ) : (
+              <div style={{ padding: '20px', textAlign: 'center' }}>
+                <h1>Page introuvable</h1>
+                <p>La page que vous recherchez n'existe pas ou a été déplacée.</p>
+                <div style={{ marginTop: '20px' }}>
+                  <Link to="/" style={{
+                    display: 'inline-block',
+                    padding: '10px 20px',
+                    background: '#4a148c',
+                    color: 'white',
+                    textDecoration: 'none',
+                    borderRadius: '4px'
+                  }}>Retour à l'accueil</Link>
+                </div>
+                <p>Pages disponibles :</p>
+                <ul style={{ listStyle: 'none', padding: 0 }}>
+                  <li><Link to="/" style={{ color: '#4a90e2', textDecoration: 'none' }}>Accueil</Link></li>
+                  <li><Link to="/login" style={{ color: '#4a90e2', textDecoration: 'none' }}>Connexion</Link></li>
+                  <li><Link to="/register" style={{ color: '#4a90e2', textDecoration: 'none' }}>Inscription</Link></li>
+                  <li><Link to="/shop" style={{ color: '#4a90e2', textDecoration: 'none' }}>Boutique</Link></li>
+                  <li><Link to="/admin" style={{ color: '#4a90e2', textDecoration: 'none' }}>Admin</Link></li>
+                </ul>
+              </div>
+            )
+          } />
         </Routes>
       </div>
       

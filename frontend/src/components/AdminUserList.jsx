@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useAuth } from '../context/AuthContext';
-import { getAllUsers } from '../api/apiClient';
+import { getAllUsers, updateUserRole } from '../api/apiClient';
 import './AdminUserList.css';
 
 /**
@@ -12,6 +12,7 @@ function AdminUserList() {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [roleUpdateLoading, setRoleUpdateLoading] = useState(null); // ID of the user being updated
 
   useEffect(() => {
     // Only fetch users if the current user is an admin
@@ -36,6 +37,45 @@ function AdminUserList() {
       setError('Failed to load users list');
     } finally {
       setLoading(false);
+    }
+  };
+  
+  /**
+   * Handle role update for a user
+   * @param {string} userId - ID of the user to update
+   * @param {string} currentRole - Current role of the user
+   */
+  const handleRoleUpdate = async (userId, currentRole) => {
+    // Prevent updating the current admin's role (self-demotion protection)
+    if (userId === user.id || userId === user._id) {
+      alert("Vous ne pouvez pas modifier votre propre rôle.");
+      return;
+    }
+    
+    const newRole = currentRole === 'admin' ? 'user' : 'admin';
+    const confirmMessage = currentRole === 'admin' 
+      ? `Êtes-vous sûr de vouloir rétrograder cet utilisateur au rôle 'user' ?`
+      : `Êtes-vous sûr de vouloir promouvoir cet utilisateur au rôle 'admin' ?`;
+    
+    if (window.confirm(confirmMessage)) {
+      setRoleUpdateLoading(userId);
+      try {
+        await updateUserRole(userId, newRole);
+        
+        // Update local state to reflect the change
+        setUsers(users.map(u => {
+          if ((u.id === userId) || (u._id === userId)) {
+            return { ...u, role: newRole };
+          }
+          return u;
+        }));
+        
+      } catch (err) {
+        console.error('Error updating user role:', err);
+        alert(`Erreur lors de la mise à jour du rôle: ${err.message}`);
+      } finally {
+        setRoleUpdateLoading(null);
+      }
     }
   };
 
@@ -68,32 +108,71 @@ function AdminUserList() {
 
   return (
     <div className="admin-user-list">
-      <h2>All Users</h2>
+      <h2>Gestion des utilisateurs</h2>
       <div className="users-table-container">
         <table className="users-table">
           <thead>
             <tr>
               <th>ID</th>
-              <th>Name</th>
+              <th>Nom</th>
               <th>Email</th>
-              <th>Role</th>
-              <th>Created At</th>
+              <th>Rôle</th>
+              <th>Date de création</th>
+              <th>Actions</th>
             </tr>
           </thead>
           <tbody>
-            {users.map((user) => (
-              <tr key={user.id || user._id}>
-                <td>{user.id || user._id}</td>
-                <td>{user.name || 'N/A'}</td>
-                <td>{user.email}</td>
-                <td>{user.role}</td>
-                <td>
-                  {user.createdAt 
-                    ? new Date(user.createdAt).toLocaleDateString() 
-                    : 'N/A'}
-                </td>
-              </tr>
-            ))}
+            {users.map((userItem) => {
+              const userId = userItem.id || userItem._id;
+              const isCurrentUser = userId === (user?.id || user?._id);
+              return (
+                <tr key={userId} className={isCurrentUser ? 'current-user' : ''}>
+                  <td>{userId}</td>
+                  <td>
+                    {userItem.name || 'N/A'}
+                    {isCurrentUser && <span className="current-user-badge">Vous</span>}
+                  </td>
+                  <td>{userItem.email}</td>
+                  <td>
+                    <span className={`role-badge role-${userItem.role}`}>
+                      {userItem.role === 'admin' ? (
+                        <>
+                          <span className="role-icon">👑</span> Admin
+                        </>
+                      ) : (
+                        <>
+                          <span className="role-icon">👤</span> Utilisateur
+                        </>
+                      )}
+                    </span>
+                  </td>
+                  <td>
+                    {userItem.createdAt 
+                      ? new Date(userItem.createdAt).toLocaleDateString('fr-FR', { 
+                          day: '2-digit', 
+                          month: '2-digit',
+                          year: 'numeric'
+                        }) 
+                      : 'N/A'}
+                  </td>
+                  <td>
+                    <button 
+                      className={`role-update-button ${userItem.role === 'admin' ? 'demote' : 'promote'}`}
+                      onClick={() => handleRoleUpdate(userId, userItem.role)}
+                      disabled={isCurrentUser || roleUpdateLoading === userId}
+                    >
+                      {roleUpdateLoading === userId ? (
+                        <span className="button-loading">...</span>
+                      ) : userItem.role === 'admin' ? (
+                        'Rétrograder'
+                      ) : (
+                        'Promouvoir'
+                      )}
+                    </button>
+                  </td>
+                </tr>
+              );
+            })}
           </tbody>
         </table>
       </div>

@@ -1,7 +1,9 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import { jwtDecode } from 'jwt-decode';
+// Fix pour jwt-decode, importation directe
+import jwt_decode from 'jwt-decode';
+const jwtDecode = jwt_decode.default || jwt_decode;
 import axios from 'axios';
 
 function Login() {
@@ -10,7 +12,18 @@ function Login() {
     const [error, setError] = useState('');
     const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate();
-    const { login } = useAuth();
+    const { login, user } = useAuth();
+    
+    // Rediriger l'utilisateur s'il est déjà connecté
+    useEffect(() => {
+        if (user) {
+            if (user.role === 'admin') {
+                navigate('/admin/dashboard');
+            } else {
+                navigate('/shop');
+            }
+        }
+    }, [user, navigate]);
 
     const handleLogin = async (e) => {
         e.preventDefault();
@@ -18,39 +31,24 @@ function Login() {
         setError('');
         
         try {
-            // Direct API call to the backend
-            const response = await axios.post('http://localhost:3001/api/auth/login', {
-                email,
-                password
-            });
+            // Utiliser la fonction login du contexte d'authentification
+            const result = await login(email, password);
             
-            const { token } = response.data;
-            
-            if (token) {
-                // Store token in localStorage
-                localStorage.setItem('token', token);
+            if (result.success) {
+                console.log('Connexion réussie, rôle:', result.role);
                 
-                // Decode token to get user info
-                try {
-                    const decoded = jwtDecode(token);
-                    console.log('Logged in user:', decoded);
-                    
-                    // If user is admin, redirect to admin page
-                    if (decoded.role === 'admin') {
-                        navigate('/admin');
-                    } else {
-                        navigate('/');
-                    }
-                } catch (decodeError) {
-                    console.error('Error decoding token:', decodeError);
-                    navigate('/');
+                // Redirection selon le rôle
+                if (result.role === 'admin') {
+                    navigate('/admin/dashboard');
+                } else {
+                    navigate('/shop');
                 }
             } else {
-                setError('No token received from server');
+                setError(result.error || 'Échec de la connexion');
             }
         } catch (err) {
-            console.error('Login error:', err);
-            setError(err.response?.data?.message || 'Login failed. Please check your credentials.');
+            console.error('Erreur de connexion:', err);
+            setError(err.message || 'Une erreur est survenue lors de la connexion.');
         } finally {
             setIsLoading(false);
         }
