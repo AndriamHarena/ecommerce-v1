@@ -20,7 +20,7 @@ function ShopPage() {
       id: 1,
       name: 'Smartphone XYZ',
       price: 499.99,
-      imageUrl: 'https://via.placeholder.com/300x300',
+      imageUrl: 'https://png.pngtree.com/png-clipart/20240907/original/pngtree-the-new-xyz-smartphone-design-and-innovation-png-image_15964110.png',
       category: 'electronics',
       rating: 4.5,
       inStock: true
@@ -29,7 +29,7 @@ function ShopPage() {
       id: 2,
       name: 'Laptop Pro',
       price: 1299.99,
-      imageUrl: 'https://via.placeholder.com/300x300',
+      imageUrl: 'https://store.storeimages.cdn-apple.com/1/as-images.apple.com/is/refurb-mbp13-silver-m1-2020_GEO_EMEA_LANG_FR?wid=1144&hei=1144&fmt=jpeg&qlt=90&.v=UXlPZEIyN05OMlhNQTZyZjdnZCs0Y2p2N0N4bU5na3RmMGtpYUhuQ3cwekRnd0VXQStRRXp1SFZIWUQ5UzV3NldxbXl6Zkx0ZHM3QWNqMHpCbjNibkw2TGhYaGhMVkJpQ2RGWWVURTZNbXlSYzNkak1RYUU0MkVhbE5wcTdQU0w',
       category: 'electronics',
       rating: 4.8,
       inStock: true
@@ -38,7 +38,7 @@ function ShopPage() {
       id: 3,
       name: 'Casual T-shirt',
       price: 29.99,
-      imageUrl: 'https://via.placeholder.com/300x300',
+      imageUrl: 'https://www.casualc.com/wp-content/uploads/2019/10/T-shirt-bleu-1.jpg',
       category: 'clothing',
       rating: 4.2,
       inStock: true
@@ -47,7 +47,7 @@ function ShopPage() {
       id: 4,
       name: 'Running Shoes',
       price: 89.99,
-      imageUrl: 'https://via.placeholder.com/300x300',
+      imageUrl: 'https://m.media-amazon.com/images/I/71qDaN-XnCL._AC_UY900_DpWeblab_.jpg',
       category: 'clothing',
       rating: 4.6,
       inStock: false
@@ -56,7 +56,7 @@ function ShopPage() {
       id: 5,
       name: 'Coffee Machine',
       price: 199.99,
-      imageUrl: 'https://via.placeholder.com/300x300',
+      imageUrl: 'https://www.senya.fr/wp-content/uploads/2024/05/0007_SENYA_-9-scaled.jpg',
       category: 'home',
       rating: 4.3,
       inStock: true
@@ -65,7 +65,7 @@ function ShopPage() {
       id: 6,
       name: 'Wireless Headphones',
       price: 149.99,
-      imageUrl: 'https://via.placeholder.com/300x300',
+      imageUrl: 'https://m.media-amazon.com/images/I/71ltns-SeoL.jpg',
       category: 'electronics',
       rating: 4.7,
       inStock: true
