@@ -31,7 +31,13 @@ function AdminUsersPage() {
   }
 
   return (
-    <div className="admin-users-page" style={{ padding: '2rem', maxWidth: '1200px', margin: '0 auto' }}>
+    <div className="admin-users-page"  style={{
+    width: '100%',
+    maxWidth: '1200px',
+    margin: '0 auto',
+    padding: '1rem',
+    boxSizing: 'border-box'
+  }}>
       <div className="admin-header">
         <h1>Gestion des utilisateurs</h1>
         <p className="admin-breadcrumb">
