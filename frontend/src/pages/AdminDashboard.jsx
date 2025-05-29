@@ -3,19 +3,13 @@ import { Link, Navigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import '../styles/AdminDashboard.css';
 
-/**
- * Tableau de bord principal pour les administrateurs
- * Cette page sert de hub central pour toutes les fonctionnalités d'administration
- */
 function AdminDashboard() {
   const { user, loading, isAdmin } = useAuth();
 
-  // Rediriger vers la page de connexion si l'utilisateur n'est pas connecté
   if (!loading && !user) {
     return <Navigate to="/login" />;
   }
 
-  // Rediriger vers la page d'accueil si l'utilisateur n'est pas un administrateur
   if (!loading && user && !isAdmin()) {
     return <Navigate to="/access-denied" />;
   }
@@ -64,45 +58,25 @@ function AdminDashboard() {
         </p>
       </header>
 
-      <div className="dashboard-stats">
-        <div className="stat-card">
-          <div className="stat-icon" style={{ backgroundColor: '#e3f2fd' }}>🛒</div>
-          <div className="stat-content">
-            <h3>Commandes</h3>
-            <p className="stat-value">24</p>
-            <p className="stat-label">en attente</p>
+      <section className="dashboard-stats">
+        {[
+          { icon: '🛒', title: 'Commandes', value: '24', label: 'en attente', bg: '#e3f2fd' },
+          { icon: '💰', title: 'Revenus', value: '4,250 €', label: 'ce mois-ci', bg: '#e8f5e9' },
+          { icon: '👤', title: 'Utilisateurs', value: '156', label: 'inscrits', bg: '#fff8e1' },
+          { icon: '📊', title: 'Produits', value: '42', label: 'en stock', bg: '#f3e5f5' }
+        ].map((stat, index) => (
+          <div className="stat-card" key={index}>
+            <div className="stat-icon" style={{ backgroundColor: stat.bg }}>{stat.icon}</div>
+            <div className="stat-content">
+              <h3>{stat.title}</h3>
+              <p className="stat-value">{stat.value}</p>
+              <p className="stat-label">{stat.label}</p>
+            </div>
           </div>
-        </div>
-        
-        <div className="stat-card">
-          <div className="stat-icon" style={{ backgroundColor: '#e8f5e9' }}>💰</div>
-          <div className="stat-content">
-            <h3>Revenus</h3>
-            <p className="stat-value">4,250 €</p>
-            <p className="stat-label">ce mois-ci</p>
-          </div>
-        </div>
-        
-        <div className="stat-card">
-          <div className="stat-icon" style={{ backgroundColor: '#fff8e1' }}>👤</div>
-          <div className="stat-content">
-            <h3>Utilisateurs</h3>
-            <p className="stat-value">156</p>
-            <p className="stat-label">inscrits</p>
-          </div>
-        </div>
-        
-        <div className="stat-card">
-          <div className="stat-icon" style={{ backgroundColor: '#f3e5f5' }}>📊</div>
-          <div className="stat-content">
-            <h3>Produits</h3>
-            <p className="stat-value">42</p>
-            <p className="stat-label">en stock</p>
-          </div>
-        </div>
-      </div>
+        ))}
+      </section>
 
-      <div className="dashboard-features">
+      <section className="dashboard-features">
         <h2>Fonctionnalités d'administration</h2>
         <div className="features-grid">
           {adminFeatures.map(feature => (
@@ -118,35 +92,22 @@ function AdminDashboard() {
               <h3>{feature.title}</h3>
               <p>{feature.description}</p>
               <div className="feature-action">
-                Accéder
-                <span className="arrow-icon">→</span>
+                Accéder <span className="arrow-icon">→</span>
               </div>
             </Link>
           ))}
         </div>
-      </div>
+      </section>
 
-      <div className="dashboard-quick-actions">
+      <section className="dashboard-quick-actions">
         <h2>Actions rapides</h2>
         <div className="quick-actions-list">
-          <button className="quick-action-button">
-            <span className="quick-action-icon">✚</span>
-            Ajouter un produit
-          </button>
-          <button className="quick-action-button">
-            <span className="quick-action-icon">📝</span>
-            Voir les commandes récentes
-          </button>
-          <button className="quick-action-button">
-            <span className="quick-action-icon">📊</span>
-            Générer un rapport
-          </button>
-          <button className="quick-action-button">
-            <span className="quick-action-icon">💬</span>
-            Messages clients
-          </button>
+          <button className="quick-action-button"><span className="quick-action-icon">✚</span> Ajouter un produit</button>
+          <button className="quick-action-button"><span className="quick-action-icon">📝</span> Voir les commandes récentes</button>
+          <button className="quick-action-button"><span className="quick-action-icon">📊</span> Générer un rapport</button>
+          <button className="quick-action-button"><span className="quick-action-icon">💬</span> Messages clients</button>
         </div>
-      </div>
+      </section>
     </div>
   );
 }
