@@ -1,8 +1,7 @@
 import { createContext, useContext, useState, useEffect } from 'react';
 import axios from 'axios';
 // Fix pour jwt-decode, importation directe
-import jwt_decode from 'jwt-decode';
-const jwtDecode = jwt_decode.default || jwt_decode;
+import { jwtDecode } from 'jwt-decode';
 
 const AuthContext = createContext();
 

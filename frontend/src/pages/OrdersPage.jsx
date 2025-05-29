@@ -127,11 +127,11 @@ function OrdersPage() {
                   </div>
                   <div className="order-info-item">
                     <span className="info-label">Total:</span>
-                    <span className="order-total">{order.totalAmount?.toFixed(2) || '0.00'} €</span>
+                    <span className="order-total">{order.totalPrice?.toFixed(2) || '0.00'} €</span>
                   </div>
                   <div className="order-info-item">
                     <span className="info-label">Articles:</span>
-                    <span>{order.items?.length || 0}</span>
+                    <span>{order.products?.length || 0}</span>
                   </div>
                 </div>
                 

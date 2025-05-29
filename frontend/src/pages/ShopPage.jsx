@@ -20,7 +20,7 @@ function ShopPage() {
       id: 1,
       name: 'Smartphone XYZ',
       price: 499.99,
-      image: 'https://via.placeholder.com/300x300',
+      imageUrl: 'https://via.placeholder.com/300x300',
       category: 'electronics',
       rating: 4.5,
       inStock: true
@@ -29,7 +29,7 @@ function ShopPage() {
       id: 2,
       name: 'Laptop Pro',
       price: 1299.99,
-      image: 'https://via.placeholder.com/300x300',
+      imageUrl: 'https://via.placeholder.com/300x300',
       category: 'electronics',
       rating: 4.8,
       inStock: true
@@ -38,7 +38,7 @@ function ShopPage() {
       id: 3,
       name: 'Casual T-shirt',
       price: 29.99,
-      image: 'https://via.placeholder.com/300x300',
+      imageUrl: 'https://via.placeholder.com/300x300',
       category: 'clothing',
       rating: 4.2,
       inStock: true
@@ -47,7 +47,7 @@ function ShopPage() {
       id: 4,
       name: 'Running Shoes',
       price: 89.99,
-      image: 'https://via.placeholder.com/300x300',
+      imageUrl: 'https://via.placeholder.com/300x300',
       category: 'clothing',
       rating: 4.6,
       inStock: false
@@ -56,7 +56,7 @@ function ShopPage() {
       id: 5,
       name: 'Coffee Machine',
       price: 199.99,
-      image: 'https://via.placeholder.com/300x300',
+      imageUrl: 'https://via.placeholder.com/300x300',
       category: 'home',
       rating: 4.3,
       inStock: true
@@ -65,7 +65,7 @@ function ShopPage() {
       id: 6,
       name: 'Wireless Headphones',
       price: 149.99,
-      image: 'https://via.placeholder.com/300x300',
+      imageUrl: 'https://via.placeholder.com/300x300',
       category: 'electronics',
       rating: 4.7,
       inStock: true
@@ -135,7 +135,7 @@ function ShopPage() {
         {filteredProducts.map(product => (
           <div key={product.id} className="product-card">
             <div className="product-image">
-              <img src={product.image} alt={product.name} />
+              <img src={product.imageUrl} alt={product.name} />
               {!product.inStock && <span className="out-of-stock">Rupture de stock</span>}
             </div>
             <div className="product-details">

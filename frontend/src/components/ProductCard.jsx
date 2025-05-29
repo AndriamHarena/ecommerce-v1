@@ -33,9 +33,9 @@ function ProductCard({ product }) {
     return (
         <div className="product-card">
             <div className="product-image">
-                {product.image ? (
+                {product.imageUrl ? (
                     <img 
-                        src={product.image} 
+                        src={product.imageUrl} 
                         alt={product.name} 
                         onError={(e) => {
                             e.target.onerror = null;

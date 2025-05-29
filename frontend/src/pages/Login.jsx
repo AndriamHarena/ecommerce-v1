@@ -1,10 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-// Fix pour jwt-decode, importation directe
-import jwt_decode from 'jwt-decode';
-const jwtDecode = jwt_decode.default || jwt_decode;
-import axios from 'axios';
 
 function Login() {
     const [email, setEmail] = useState('admin@example.com'); // Pre-filled for testing
